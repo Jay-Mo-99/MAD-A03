@@ -2,6 +2,11 @@ package com.example.a01_travel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +18,7 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_warning, tv_hyperLink;
 
 
+    //Function about Application widget
+    private void updateWidgets() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, MyAppWidgetProvider.class));
+        if (appWidgetIds.length > 0) {
+            new MyAppWidgetProvider().onUpdate(this, appWidgetManager, appWidgetIds);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         et_where = findViewById(R.id.et_where);
         tv_warning = findViewById(R.id.tv_warning);
         tv_hyperLink = findViewById(R.id.tv_hyperlink);
+
+        //Add the application widget
+        updateWidgets();
 
         // Set the link text
         final String linkText = "The best places to travel in 2024";
