@@ -8,8 +8,8 @@
         android:id="@+id/widget_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#FFFFFF"
-        android:background="@android:color/black"
+        android:textColor="@color/white"
+        android:background="@color/main"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="Placeholder Text" />
